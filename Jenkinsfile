@@ -1,14 +1,11 @@
 pipeline {
     agent any
-    tools {
-        maven 'Maven 3'
-    }
     stages {
         stage('Build') {
             steps {
                 script {
-                    echo 'Building with Maven...'
-                    bat 'mvn clean package'
+                    echo 'Building Node.js app...'
+                    bat 'npm install'
                 }
             }
         }
@@ -26,7 +23,8 @@ pipeline {
                     bat 'docker rm myapp || ver > nul'
 
                     // 3. Run the container in detached mode
-                    bat 'docker run -d --name myapp -p 8080:8080 my-app:latest'
+                    // Port mapping: 8080 (host) -> 3000 (container, where Node.js app listens)
+                    bat 'docker run -d --name myapp -p 8080:3000 my-app:latest'
                 }
             }
         }
