@@ -31,7 +31,7 @@ pipeline {
     echo Running SSH...
 
     ssh -o StrictHostKeyChecking=no -o BatchMode=yes -o PreferredAuthentications=publickey ^
-    -i "%SSH_KEY%" -p 50943 core@localhost ^
+    -i "%SSH_KEY%" -p 50943 root@localhost ^
     "podman stop myapp || true && podman rm myapp || true && podman run -d --name myapp -p 8080:3000 my-app:latest"
     """
 }
