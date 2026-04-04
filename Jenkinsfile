@@ -17,7 +17,7 @@ pipeline {
                 script {
                     echo 'Deploying with Podman...'
                     // Assuming 'myapp' is the name of the container
-                    sh 'podman run -d --name myapp -p 8080:8080 my-app:latest'
+                    bat 'podman run -d --name myapp -p 8080:8080 my-app:latest'
                 }
             }
         }
