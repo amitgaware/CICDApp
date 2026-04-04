@@ -6,7 +6,7 @@ pipeline {
             steps {
                 echo 'Testing SSH connection to Podman VM...'
                 // Use file credential instead of ssh-agent
-                withCredentials([file(credentialsId: 'podman-vm-key2', variable: 'SSH_KEY')]) {
+                withCredentials([file(credentialsId: 'podman-vm-key', variable: 'SSH_KEY')]) {
                     echo 'Deploying to Podman VM via SSH...'
 
                     bat """
