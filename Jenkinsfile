@@ -12,13 +12,13 @@ pipeline {
         }
         stage('Deploy') {
             steps {
-                //withCredentials([file(credentialsId: 'podman-vm-key2', variable: 'SSH_KEY')]) {
+                //withCredentials([file(credentialsId: 'podman-vm-key', variable: 'SSH_KEY')]) {
                   //  bat """
                     //ssh -o StrictHostKeyChecking=no -i %SSH_KEY% -p 50943 root@localhost ^
                     //"podman stop myapp || true && podman rm myapp || true && podman run -d --name myapp -p 8080:3000 my-app:latest"
                     //"""       }
 
-                withCredentials([sshUserPrivateKey(credentialsId: 'podman-vm-key', keyFileVariable: 'SSH_KEY')]) {
+                withCredentials([sshUserPrivateKey(credentialsId: 'podman-vm-key2', keyFileVariable: 'SSH_KEY')]) {
     bat """
     echo Fixing key permissions...
 
