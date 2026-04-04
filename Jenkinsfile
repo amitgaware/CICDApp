@@ -18,7 +18,7 @@ pipeline {
                     //"podman stop myapp || true && podman rm myapp || true && podman run -d --name myapp -p 8080:3000 my-app:latest"
                     //"""       }
 
-                withCredentials([sshUserPrivateKey(credentialsId: 'podman-vm-key', keyFileVariable: 'SSH_KEY')]) {
+                withCredentials([sshUserPrivateKey(credentialsId: 'podman-vm-key2', keyFileVariable: 'SSH_KEY')]) {
     bat """
     REM Fix line endings for Windows (optional)
     powershell -Command "(Get-Content %SSH_KEY%) | Set-Content -NoNewline %SSH_KEY%"
