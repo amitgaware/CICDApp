@@ -6,18 +6,20 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                script {
-                    echo 'Building with Maven...'
-                    bat 'mvn clean package'
-                }
+                echo 'Building with Maven...'
+                bat 'mvn clean package'
             }
         }
         stage('Deploy') {
             steps {
-                script {
-                    echo 'Deploying with Podman...'
-                    // Assuming 'myapp' is the name of the container
-                    bat 'podman run -d --name myapp -p 8080:8080 my-app:latest'
+                sshagent(['podman-vm-key']) {
+                    sh '''
+                    ssh -p 54665 root@localhost "
+                        podman stop myapp || true &&
+                        podman rm myapp || true &&
+                        podman run -d --name myapp -p 8080:8080 my-app:latest
+                    "
+                    '''
                 }
             }
         }
