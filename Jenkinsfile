@@ -4,18 +4,12 @@ pipeline {
         maven 'Maven 3'
     }
     stages {
-        pipeline {
-    agent any
-    tools {
-        maven 'Maven 3'
-    }
-    stages {
         stage('Build') {
             steps {
                 echo 'Building with Maven...'
                 bat 'mvn clean package'
             }
-        }
+        }        
         stage('Deploy') {
             steps {
                 // Use sshagent plugin instead of fixing ACLs manually
@@ -29,6 +23,5 @@ pipeline {
         }
     }
 }
-                }
-    }
+                
 
