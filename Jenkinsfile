@@ -17,7 +17,7 @@ pipeline {
                     ssh -p 54665 root@localhost "
                         podman stop myapp || true &&
                         podman rm myapp || true &&
-                        podman run -d --name myapp -p 8080:8080 my-app:latest
+                        podman run -d --name myapp -p 8080:3000 my-app:latest
                     "
                     '''
                 }
