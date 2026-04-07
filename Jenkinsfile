@@ -20,6 +20,12 @@ pipeline {
                 }
             }
         }
+        stage('Test_Functional') {
+    steps {
+        sh 'npm install'
+        sh 'npm test'
+    }
+}
         stage('Deploy') {
     steps {
         script {
