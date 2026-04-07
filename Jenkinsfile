@@ -15,10 +15,17 @@ pipeline {
         stage('Deploy') {
             steps {
                 script {
-                    echo 'Deploying with Podman...'
-                    bat 'podman build -t my-app:latest .'
-                    // Assuming 'myapp' is the name of the container
-                    bat 'podman run -d --name myapp -p 8080:8080 my-app:latest'
+                    echo 'Deploying with Docker...'
+                    
+                    // Stop and remove existing container (if exists)
+                    bat 'docker stop myapp || exit 0'
+                    bat 'docker rm myapp || exit 0'
+                    
+                    // Build Docker image
+                    bat 'docker build -t my-app:latest .'
+                    
+                    // Run container
+                    bat 'docker run -d --name myapp -p 8080:8080 my-app:latest'
                 }
             }
         }
