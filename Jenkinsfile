@@ -22,8 +22,8 @@ pipeline {
         }
         stage('Test_Functional') {
     steps {
-        sh 'npm install'
-        sh 'npm test'
+        bat 'npm install'
+        bat 'npm test'
     }
 }
         stage('Deploy') {
