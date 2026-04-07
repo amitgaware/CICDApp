@@ -29,8 +29,9 @@ pipeline {
             bat 'docker rm myapp || exit 0'
 
             bat 'set DOCKER_BUILDKIT=0&& docker build -t my-app:latest .'
-
+            docker run -d -p 3001:3000 --name grafana grafana/grafana
             bat 'docker run -d --name myapp -p 8090:3000 my-app:latest'
+           
         }
     }
 }
