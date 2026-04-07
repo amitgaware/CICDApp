@@ -22,7 +22,7 @@ pipeline {
 
             bat 'set DOCKER_BUILDKIT=0&& docker build -t my-app:latest .'
 
-            bat 'docker run -d --name myapp1 -p 8090:8090 my-app:latest'
+            bat 'docker run -d --name myapp -p 8090:8090 my-app:latest'
         }
     }
 }
