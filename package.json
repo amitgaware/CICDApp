@@ -13,5 +13,9 @@
   "dependencies": {
     "express": "^4.18.2",
     "prom-client": "^14.x.x"
+  },
+  "devDependencies": {
+    "jest": "^29.x.x",
+    "supertest": "^6.x.x"
   }
 }
