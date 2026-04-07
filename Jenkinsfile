@@ -20,7 +20,7 @@ pipeline {
             bat 'docker stop myapp || exit 0'
             bat 'docker rm myapp || exit 0'
 
-            bat 'set DOCKER_BUILDKIT=0 && docker build -t my-app:latest .'
+            bat 'set DOCKER_BUILDKIT=0&& docker build -t my-app:latest .'
 
             bat 'docker run -d --name myapp -p 8080:8080 my-app:latest'
         }
