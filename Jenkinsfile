@@ -13,21 +13,18 @@ pipeline {
             }
         }
         stage('Deploy') {
-            steps {
-                script {
-                    echo 'Deploying with Docker...'
-                    
-                    // Stop and remove existing container (if exists)
-                    bat 'docker stop myapp || exit 0'
-                    bat 'docker rm myapp || exit 0'
-                    
-                    // Build Docker image
-                    bat 'docker build -t my-app:latest .'
-                    
-                    // Run container
-                    bat 'docker run -d --name myapp -p 8080:8080 my-app:latest'
-                }
-            }
+    steps {
+        script {
+            echo 'Deploying with Docker...'
+
+            bat 'docker stop myapp || exit 0'
+            bat 'docker rm myapp || exit 0'
+
+            bat 'set DOCKER_BUILDKIT=0 && docker build -t my-app:latest .'
+
+            bat 'docker run -d --name myapp -p 8080:8080 my-app:latest'
         }
+    }
+}
     }
 }
