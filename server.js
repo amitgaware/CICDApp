@@ -31,8 +31,12 @@ app.get('/metrics', async (req, res) => {
   res.end(await client.register.metrics());
 });
 
-// start server
-app.listen(PORT, () => {
-  console.log(`Server is running on http://localhost:${PORT}`);
-});
+// ✅ IMPORTANT: Only start server if NOT in test mode
+if (process.env.NODE_ENV !== 'test') {
+  app.listen(PORT, () => {
+    console.log(`Server is running on http://localhost:${PORT}`);
+  });
+}
+
+// ✅ Export app for testing
 module.exports = app;
