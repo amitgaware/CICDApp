@@ -33,6 +33,8 @@ pipeline {
 
             bat 'docker stop myapp || exit 0'
             bat 'docker rm myapp || exit 0'
+            bat 'docker stop grafana || exit 0'
+            bat 'docker rm grafana || exit 0'
 
             bat 'set DOCKER_BUILDKIT=0&& docker build -t my-app:latest .'
             bat 'docker run -d -p 3001:3000 --name grafana grafana/grafana'
