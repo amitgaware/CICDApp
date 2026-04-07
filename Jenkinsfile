@@ -1,30 +1,25 @@
 pipeline {
     agent any
-
+    tools {
+        maven 'Maven 3'
+    }
     stages {
-        stage('Test SSH Credential') {
+        stage('Build') {
             steps {
-                echo 'Testing SSH connection to Podman VM...'
-                // Use file credential instead of ssh-agent
-                withCredentials([file(credentialsId: 'podman-vm-key', variable: 'SSH_KEY')]) {
-                    echo 'Deploying to Podman VM via SSH...'
-
-                    bat """
-                    ssh -o StrictHostKeyChecking=no -i "%SSH_KEY%" -p 50943 root@localhost ^
-                        "podman stop myapp || true && podman rm myapp || true && podman run -d --name myapp -p 8080:3000 my-app:latest"
-                    """
-                    
+                script {
+                    echo 'Building with Maven...'
+                    bat 'mvn clean package'
                 }
             }
         }
-    }
-
-    post {
-        success {
-            echo 'SSH credential works! ✅'
-        }
-        failure {
-            echo 'SSH test failed. Check credential username/key. ❌'
+        stage('Deploy') {
+            steps {
+                script {
+                    echo 'Deploying with Podman...'
+                    // Assuming 'myapp' is the name of the container
+                    bat 'podman run -d --name myapp -p 8080:8080 my-app:latest'
+                }
+            }
         }
     }
 }
